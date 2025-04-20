@@ -5,27 +5,54 @@ import { useRef } from 'react'
 import { useEffect } from 'react'
 
 const Home = () => {
-  const eggmodoroMode = {
-    modeTimer: 1 * 60,
-    modeShortBreak: 2 * 60,
-    modeLongBreak: 1 * 60,
+  // Default values in minutes (will be converted to seconds)
+  const defaultModesInMinutes = {
+    modeTimer: 1,
+    modeShortBreak: 2,
+    modeLongBreak: 1,
   }
-  const [timeLeft, setTimeLeft] = useState(eggmodoroMode.modeTimer)
-  const [timerMode, setTimerMode] = useState(Object.keys(eggmodoroMode)[0])
-  const [isActive, setIsActive] = useState(false)
 
+  // Load from localStorage or use defaults
+  const loadFromLocalStorage = () => {
+    const savedTimes = localStorage.getItem('eggmodoroTimes')
+    return savedTimes ? JSON.parse(savedTimes) : defaultModesInMinutes
+  }
+
+  // Convert minutes to seconds for internal use
+  const initializeTimes = () => {
+    const timesInMinutes = loadFromLocalStorage()
+    return {
+      modeTimer: timesInMinutes.modeTimer * 60,
+      modeShortBreak: timesInMinutes.modeShortBreak * 60,
+      modeLongBreak: timesInMinutes.modeLongBreak * 60,
+    }
+  }
+
+  const [timeLeft, setTimeLeft] = useState(0) // Will be set in useEffect
+  const [timerMode, setTimerMode] = useState(Object.keys(defaultModesInMinutes)[0])
+  const [isActive, setIsActive] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [showSettings, setShowSettings] = useState(false)
+  const [customTimes, setCustomTimes] = useState(initializeTimes())
+
   const timerRef = useRef(null)
 
+  // Initialize timeLeft when component mounts
   useEffect(() => {
-    setTimeLeft(eggmodoroMode[timerMode])
-    // setProgress(0)
+    setTimeLeft(customTimes[timerMode])
+  }, [])
+
+  // Handle timer mode changes
+  useEffect(() => {
+    setTimeLeft(customTimes[timerMode])
+    setProgress(0)
     setIsActive(false)
     if (timerRef.current) {
       clearInterval(timerRef.current)
     }
-  }, [timerMode])
+  }, [timerMode, customTimes])
 
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -33,6 +60,16 @@ const Home = () => {
       }
     }
   }, [])
+
+  // Save to localStorage whenever customTimes changes
+  useEffect(() => {
+    const timesInMinutes = {
+      modeTimer: customTimes.modeTimer / 60,
+      modeShortBreak: customTimes.modeShortBreak / 60,
+      modeLongBreak: customTimes.modeLongBreak / 60,
+    }
+    localStorage.setItem('SAVED_TIME_DATA', JSON.stringify(timesInMinutes))
+  }, [customTimes])
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60)
@@ -50,7 +87,7 @@ const Home = () => {
     } else {
       setIsActive(true)
 
-      const totalTime = eggmodoroMode[timerMode]
+      const totalTime = customTimes[timerMode]
 
       timerRef.current = setInterval(() => {
         setTimeLeft((prev) => {
@@ -77,6 +114,35 @@ const Home = () => {
     }
   }
 
+  const handleTimeChange = (mode, minutes) => {
+    const clampedMinutes = Math.min(99, Math.max(1, minutes || 1))
+    const seconds = clampedMinutes * 60
+    setCustomTimes((prev) => ({
+      ...prev,
+      [mode]: seconds,
+    }))
+  }
+
+  const saveSettings = () => {
+    setShowSettings(false)
+    // Reset current timer
+    setTimeLeft(customTimes[timerMode])
+    setProgress(0)
+    setIsActive(false)
+    clearInterval(timerRef.current)
+  }
+
+  const resetToDefault = () => {
+    const defaultTimes = {
+      modeTimer: defaultModesInMinutes.modeTimer * 60,
+      modeShortBreak: defaultModesInMinutes.modeShortBreak * 60,
+      modeLongBreak: defaultModesInMinutes.modeLongBreak * 60,
+    }
+    setCustomTimes(defaultTimes)
+    setShowSettings(false)
+    localStorage.removeItem('eggmodoroTimes')
+  }
+
   const time = formatTime(timeLeft)
 
   const progressBarStyle = {
@@ -85,9 +151,9 @@ const Home = () => {
   }
 
   const getCountdownText = () => {
-    if (timerMode === Object.keys(eggmodoroMode)[0]) {
+    if (timerMode === 'modeTimer') {
       return 'IN FOCUS'
-    } else if (timerMode === Object.keys(eggmodoroMode)[1]) {
+    } else if (timerMode === 'modeShortBreak') {
       return 'SHORT BREAK'
     } else {
       return 'LONG BREAK'
@@ -96,7 +162,35 @@ const Home = () => {
 
   return (
     <main className={style.Home}>
-      <section className={style.Configuration}>CONFIG</section>
+      <section className={style.Configuration}>
+        <button className={style.SettingsButton} onClick={() => setShowSettings(!showSettings)}>
+          {showSettings ? 'CLOSE SETTINGS' : 'TIMER SETTINGS'}
+        </button>
+
+        {showSettings && (
+          <div className={style.SettingsPanel}>
+            <div className={style.SettingItem}>
+              <label>Focus Time (minutes):</label>
+              <input type="number" min="1" max="99" value={Math.floor(customTimes.modeTimer / 60)} onChange={(e) => handleTimeChange('modeTimer', e.target.valueAsNumber)} />
+            </div>
+
+            <div className={style.SettingItem}>
+              <label>Short Break (minutes):</label>
+              <input type="number" min="1" max="99" value={Math.floor(customTimes.modeShortBreak / 60)} onChange={(e) => handleTimeChange('modeShortBreak', e.target.valueAsNumber)} />
+            </div>
+
+            <div className={style.SettingItem}>
+              <label>Long Break (minutes):</label>
+              <input type="number" min="1" max="99" value={Math.floor(customTimes.modeLongBreak / 60)} onChange={(e) => handleTimeChange('modeLongBreak', e.target.valueAsNumber)} />
+            </div>
+
+            <div className={style.SettingsActions}>
+              <button onClick={saveSettings}>SAVE</button>
+              <button onClick={resetToDefault}>RESET DEFAULTS</button>
+            </div>
+          </div>
+        )}
+      </section>
 
       <section className={style.MainBox}>
         <div className={style.Countdown}>
