@@ -1,0 +1,82 @@
+@import '../../styling/token/token.scss';
+@import '../../styling/mixin/breakpoint.scss';
+@import '../../styling/mixin/font.scss';
+
+.taskform {
+  background-color: pink;
+  padding: 12px;
+}
+
+.addtask {
+  padding: 12px;
+  background-color: #ffffff3a;
+  font-size: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(182, 12, 12, 0.25);
+  &:hover {
+    background-color: #ffffff5f;
+  }
+}
+
+.formlist {
+  /* background-color: white; */
+  width: 100%;
+  /* padding: 12px; */
+  border-radius: 6px;
+  &_input {
+    /* line-height: 1; */
+    width: 100%;
+    padding: 12px;
+    /* background-color: blue; */
+    background-color: #ffffff3a;
+    font-size: 20px;
+    border: none;
+    font-size: 30px;
+    color: #fff;
+    color: #a9840a;
+    border-radius: 6px;
+    outline: 2px solid #eebb10;
+    margin-bottom: 10px;
+  }
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  &_cancel {
+    width: 100%;
+    background-color: #f0650f;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 20px;
+    &:hover {
+      background-color: #d85b0d;
+      cursor: pointer;
+    }
+  }
+  &_save {
+    width: 100%;
+    background-color: #8cc90f;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 20px;
+    &:hover {
+      background-color: #7ab00d;
+      cursor: pointer;
+    }
+  }
+  &_save_disabled {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 20px;
+    background-color: #777777;
+    cursor: not-allowed;
+    &:hover {
+      background-color: #575757; // biar hover ga berubah pas disabled
+    }
+  }
+}

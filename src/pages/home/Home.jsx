@@ -3,6 +3,7 @@ import { useState } from 'react'
 import style from './home.module.scss'
 import { useRef } from 'react'
 import { useEffect } from 'react'
+import TaskWrapper from '../../components/task/TaskWrapper'
 
 const Home = () => {
   // Default values in minutes (will be converted to seconds)
@@ -160,6 +161,9 @@ const Home = () => {
     }
   }
 
+  //-------------------------------TASK Functionaliti Here
+  //-------------------------------TASK Functionaliti Here
+
   return (
     <main className={style.Home}>
       <section className={style.Configuration}>
@@ -225,7 +229,7 @@ const Home = () => {
       </section>
 
       {/* Section Note */}
-      <section className={style.MainBox}>
+      {/* <section className={style.MainBox}>
         <div className={style.Header}>
           <div className={style.Header_Title}>Task</div>
           <div className={style.Header_Icon}></div>
@@ -241,6 +245,11 @@ const Home = () => {
           <div className={style.Notes_Note}>Button Main</div>
           <div className={style.Notes_Note}>Button Main</div>
         </div>
+      </section> */}
+
+      {/* Section Note */}
+      <section className={style.MainBox}>
+        <TaskWrapper />
       </section>
     </main>
   )

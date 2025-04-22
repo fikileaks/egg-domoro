@@ -1,0 +1,137 @@
+@import '../../styling/token/token.scss';
+@import '../../styling/mixin/breakpoint.scss';
+@import '../../styling/mixin/font.scss';
+
+.list {
+  display: flex;
+  padding: 12px;
+  background-color: #eebb10;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  &_title {
+    /* background-color: black; */
+    width: 100%;
+    font-size: 30px;
+    /* line-height: 1; */
+    overflow-wrap: break-word;
+    word-break: break-word;
+    /* background-color: red; */
+    &.completed {
+      text-decoration: line-through;
+      text-decoration-thickness: 3px;
+    }
+  }
+  &:hover {
+    /* background-color: red; */
+    border: 2px solid #fff;
+    .list {
+      &_edit,
+      &_execute {
+        display: flex;
+        align-self: flex-start;
+        flex-shrink: 0;
+      }
+    }
+  }
+  &_edit {
+    display: none;
+    padding: 4px;
+    border-radius: 6px;
+    margin-right: 2px;
+    color: white;
+    border: 2px solid #fff;
+    &:hover {
+      background-color: #c09402;
+    }
+  }
+  &_execute {
+    display: none;
+    border-radius: 6px;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    overflow: hidden;
+  }
+
+  &_close {
+    background-color: #fb5570;
+    flex-shrink: 0;
+    padding: 4px;
+    color: white;
+    &:hover {
+      background-color: #ff2f51;
+    }
+  }
+  &_done {
+    background-color: #6cc80f;
+    flex-shrink: 0;
+    padding: 4px;
+    color: white;
+    &:hover {
+      background-color: #7deb0e;
+    }
+  }
+}
+
+.formlist {
+  background-color: white;
+  width: 100%;
+  /* padding: 12px; */
+  border-radius: 6px;
+  &_input {
+    /* line-height: 1; */
+    width: 100%;
+    padding: 12px;
+    /* background-color: blue; */
+    border: none;
+    font-size: 30px;
+    color: #eebb10;
+    border-radius: 6px;
+    &:focus {
+      outline: 2px solid #eebb10;
+    }
+  }
+}
+.button {
+  width: 100%;
+  display: flex;
+  gap: 4px;
+  &_cancel {
+    width: 100%;
+    background-color: #f0650f;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 20px;
+    &:hover {
+      background-color: #d85b0d;
+      cursor: pointer;
+    }
+  }
+  &_save {
+    width: 100%;
+    background-color: #8cc90f;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 20px;
+    &:hover {
+      background-color: #7ab00d;
+      cursor: pointer;
+    }
+  }
+  &_save_disabled {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 20px;
+    background-color: #777777;
+    cursor: not-allowed;
+    &:hover {
+      background-color: #575757; // biar hover ga berubah pas disabled
+    }
+  }
+}
+
+/* .completed {
+  background-color: green;
+  text-decoration: line-through;
+  opacity: 0.6;
+} */
