@@ -7,158 +7,106 @@
 
   /*CONFIGURATION CSS ------------*/
   .Configuration {
-    background-color: palegoldenrod;
+    background-color: green;
   }
 
-  /*CONFIGURATION CSS ------------*/
   .MainBox {
     @include font-display;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* width: fit-content; */
-    width: 500px;
-    color: white;
+    width: 440px;
+    color: $color-white;
+    background-color: $color-primary-02;
+    border-radius: $radius-12;
+    padding: $spacing-12;
     margin-inline: auto;
-    margin-bottom: 20px;
-    background-color: #fadf12;
-    padding: 12px;
-    border-radius: 12px;
-    box-shadow: 8px 8px 0 #edb80b;
-    /* SETIOn 1------------------------------------ */
+    margin-bottom: $spacing-20;
+    box-shadow: $shadow-primary;
     .Countdown {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: $gap-10;
       &_Box {
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: $gap-6;
         &_Number {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: #1a41e7;
-          color: white;
-          padding: 10px 16px;
-          font-size: 54px;
-          border-radius: 4px;
-          height: 62px;
+          background-color: $color-secondary-01;
+          color: $color-white;
+          font-size: 64px;
+          border-radius: $radius-6;
+          height: 68px;
           width: 68px;
+          letter-spacing: 1px;
           & > * {
-            color: white;
-            margin-top: 10px;
-            line-height: 0;
+            color: $color-white;
+            margin-top: $spacing-10;
           }
         }
         &_Divider {
-          color: #1a41e7;
+          color: $color-secondary-01;
           font-size: 80px;
           font-size: 54px;
           & > * {
-            margin-top: 10px;
             line-height: 0;
           }
         }
       }
       &_Text {
         display: flex;
-        color: white;
+        color: $color-white;
         font-size: 80px;
         vertical-align: middle;
         & > * {
-          margin-top: 16px;
+          margin-top: $spacing-16;
           line-height: 0;
+          letter-spacing: 1px;
         }
       }
     }
     .ProgressBar {
       width: 100%;
-      height: 10px;
-      background-color: #fef9c6;
+      height: 8px;
+      background-color: $color-primary-03;
       overflow: hidden;
-      border: 2px solid white;
-      border-radius: 99px;
-      box-shadow: 0 4px 10px rgba(182, 12, 12, 0.25);
+      border: 2px solid $color-white;
+      border-radius: $radius-99;
+      box-shadow: $shadow-elevation;
       & > * {
         background: repeating-linear-gradient(-45deg, #fadf12, #fadf12 10px, #1a41e7 10px, #1a41e7 20px);
-        // width: 50%;
         height: 100%;
-        border-radius: 99px;
+        border-radius: $radius-99;
       }
     }
     .ButtonBox {
-      padding: 6px;
+      display: flex;
+      padding: $spacing-6;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.25);
-      border: 2px solid white;
-      border-radius: 6px;
-      display: flex;
-      gap: 4px;
-      box-shadow: 0 4px 10px rgba(182, 12, 12, 0.25);
+      border-radius: $radius-6;
+      gap: $gap-6;
+      box-shadow: $shadow-elevation;
       & > * {
         width: 100%;
         border-radius: 6px;
         border: none;
-        background-color: #e3ca06;
-        color: white;
+        background-color: $color-primary-01;
+        padding: $spacing-4;
+        color: $color-white;
       }
     }
     .ButtonMain {
       width: 100%;
-      background-color: #eebb10;
-      font-size: 30px;
-      border-radius: 6px;
+      background-color: $color-primary-01;
+      font-size: 28px;
+      border-radius: $radius-6;
       text-align: center;
-    }
-    /* SETIOn 2------------------------------------ */
-    .Header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      &_Title {
-        font-size: 20px;
-        font-size: 20px;
-      }
-      &_Icon {
-        background-color: white;
-        width: 18px;
-        height: 18px;
-        border-radius: 99px;
-      }
-    }
-    .Notes {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      &_Note {
-        display: flex;
-        width: 100%;
-        background-color: red;
-        width: 100%;
-        background-color: #eebb10;
-        font-size: 30px;
-        border-radius: 6px;
-        /* text-align: center; */
-        border: 2px solid white;
-        padding: 16px;
-        line-height: 1;
-        & > span {
-          /* background-color: red; */
-          width: 100%;
-          margin-right: 12px;
-        }
-        & > div {
-          /* display: none; */
-          flex-shrink: 0;
-          /* background-color: red; */
-          height: 28px;
-          width: 28px;
-          border-radius: 6px;
-          border: 2px solid white;
-        }
-      }
+      padding: $spacing-4;
     }
   }
 }

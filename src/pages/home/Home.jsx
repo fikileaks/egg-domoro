@@ -153,16 +153,13 @@ const Home = () => {
 
   const getCountdownText = () => {
     if (timerMode === 'modeTimer') {
-      return 'IN FOCUS'
+      return 'FOCUS TIME'
     } else if (timerMode === 'modeShortBreak') {
-      return 'SHORT BREAK'
+      return 'CHILL TIME'
     } else {
-      return 'LONG BREAK'
+      return 'FULL REST'
     }
   }
-
-  //-------------------------------TASK Functionaliti Here
-  //-------------------------------TASK Functionaliti Here
 
   return (
     <main className={style.Home}>
@@ -170,7 +167,6 @@ const Home = () => {
         <button className={style.SettingsButton} onClick={() => setShowSettings(!showSettings)}>
           {showSettings ? 'CLOSE SETTINGS' : 'TIMER SETTINGS'}
         </button>
-
         {showSettings && (
           <div className={style.SettingsPanel}>
             <div className={style.SettingItem}>
@@ -195,7 +191,6 @@ const Home = () => {
           </div>
         )}
       </section>
-
       <section className={style.MainBox}>
         <div className={style.Countdown}>
           <div className={style.Countdown_Box}>
@@ -227,27 +222,6 @@ const Home = () => {
           {isActive ? 'PAUSE' : 'START'}
         </button>
       </section>
-
-      {/* Section Note */}
-      {/* <section className={style.MainBox}>
-        <div className={style.Header}>
-          <div className={style.Header_Title}>Task</div>
-          <div className={style.Header_Icon}></div>
-        </div>
-        <div className={style.Notes}>
-          <div className={style.Notes_Note}>
-            <span>Tulisan Disini Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, reiciendis!</span>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <div className={style.Notes_Note}>Button Main</div>
-          <div className={style.Notes_Note}>Button Main</div>
-          <div className={style.Notes_Note}>Button Main</div>
-        </div>
-      </section> */}
-
-      {/* Section Note */}
       <section className={style.MainBox}>
         <TaskWrapper />
       </section>
