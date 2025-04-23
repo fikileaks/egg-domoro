@@ -1,25 +1,28 @@
 @import '../../styling/token/token.scss';
 @import '../../styling/mixin/breakpoint.scss';
 @import '../../styling/mixin/font.scss';
+@import '../../styling/mixin/animation.scss';
 
 .addtask {
   padding: 12px;
-  background-color: #ffffff3a;
-  font-size: 20px;
+  background-color: $color-primary-01;
+  font-size: 28px;
   border-radius: $radius-6;
   overflow: hidden;
   color: $color-white;
-  letter-spacing: 1px;
-  box-shadow: $shadow-elevation;
+  letter-spacing: 0.8px;
+  will-change: transform;
+  transition: all 0.1s ease-in-out;
   &:hover {
-    background-color: #ffffff5f;
+    background-color: $color-primary-01-hover;
+    transform: translateY(-2px);
   }
 }
 
 .formlist {
   width: 100%;
   &_input {
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     width: 100%;
     padding: $spacing-12;
     background-color: $color-primary-01;
@@ -29,6 +32,8 @@
     border-radius: $radius-6;
     margin-bottom: $spacing-10;
     outline: 2px solid $color-primary-02;
+    letter-spacing: 0.8px;
+    @include animation-fadein();
   }
 }
 
@@ -38,26 +43,32 @@
   gap: $gap-6;
   &_cancel {
     width: 100%;
-    background-color: $color-warning;
+    background-color: $color-primary-01;
     padding: $spacing-12;
     border-radius: $radius-6;
     font-size: 20px;
     letter-spacing: 0.5px;
+    will-change: transform;
+    transition: all 0.1s ease-in-out;
     &:hover {
-      background-color: $color-warning-hover;
+      background-color: $color-primary-01-hover;
       cursor: pointer;
+      transform: translateY(-2px);
     }
   }
   &_save {
     width: 100%;
-    background-color: $color-success;
+    background-color: $color-secondary-01;
     padding: $spacing-12;
     border-radius: $radius-6;
     font-size: 20px;
     letter-spacing: 0.5px;
+    will-change: transform;
+    transition: all 0.1s ease-in-out;
     &:hover {
-      background-color: $color-success;
+      background-color: $color-secondary-01-hover;
       cursor: pointer;
+      transform: translateY(-2px);
     }
   }
   &_save_disabled {

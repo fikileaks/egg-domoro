@@ -10,6 +10,10 @@
   margin: 0;
 }
 
+body {
+  background-color: #fcf8cc;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     interpolate-size: allow-keywords;

@@ -1,25 +1,23 @@
 @import '../../styling/token/token.scss';
 @import '../../styling/mixin/breakpoint.scss';
 @import '../../styling/mixin/font.scss';
+@import '../../styling/mixin/animation.scss';
 
 .list {
+  // DISINI input edit---------
   display: flex;
   padding: $spacing-12;
   border-radius: $radius-6;
-  border: 2px solid $color-primary-01;
-  &_title {
-    width: 100%;
-    font-size: 30px;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    &.completed {
-      text-decoration: line-through;
-      text-decoration-thickness: 3px;
-      text-decoration-color: $color-primary-01;
-    }
-  }
+  border: 3px solid $color-primary-01;
+  @include animation-fadein;
+  will-change: transform;
+  transition: all 0.1s ease-in-out;
   &:hover {
-    border: 2px solid $color-white;
+    transform: translateY(-2px);
+    background-color: $color-primary-03;
+    color: $color-primary-01;
+    border: 3px solid $color-white;
+    border: 3px solid transparent;
     .list {
       &_edit,
       &_execute {
@@ -29,14 +27,28 @@
       }
     }
   }
+  &_title {
+    width: 100%;
+    font-size: 30px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    letter-spacing: 0.8px;
+    &.completed {
+      text-decoration: line-through;
+      text-decoration-thickness: 3px;
+      text-decoration-color: $color-primary-01;
+    }
+  }
   &_edit {
     display: none;
     padding: $spacing-4;
     border-radius: $radius-6;
     margin-right: $spacing-4;
     background-color: $color-alert;
-    // HERE
-    border: 2px solid $color-white;
+    border: 3px solid $color-primary-03;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+
     &:hover {
       background-color: $color-alert-hover;
     }
@@ -45,15 +57,16 @@
     display: none;
     border-radius: $radius-6;
     flex-shrink: 0;
-    border: 2px solid $color-white;
+    border: 3px solid $color-primary-03;
     overflow: hidden;
   }
-
   &_close {
     background-color: $color-warning;
     flex-shrink: 0;
     padding: $spacing-4;
     color: $color-white;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
     &:hover {
       background-color: $color-warning-hover;
     }
@@ -63,24 +76,30 @@
     flex-shrink: 0;
     padding: $spacing-4;
     color: $color-white;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
     &:hover {
       background-color: $color-success-hover;
     }
   }
 }
 
+// DISINI input---------
 .formlist {
   width: 100%;
   border-radius: $radius-6;
   &_input {
+    letter-spacing: 0.8px;
     width: 100%;
     padding: $spacing-12;
     border: none;
     font-size: 28px;
     color: $color-primary-01;
+    background-color: $color-primary-03;
     border-radius: $radius-6;
+    @include animation-fadein();
     &:focus {
-      outline: 2px solid $color-primary-01;
+      outline: 3px solid $color-primary-01;
     }
   }
 }
@@ -88,27 +107,34 @@
   width: 100%;
   display: flex;
   gap: $gap-6;
+  @include animation-fadeout;
   &_cancel {
     width: 100%;
-    background-color: $color-warning;
+    background-color: $color-primary-01;
     padding: $spacing-12;
     border-radius: $radius-6;
     font-size: 20px;
     letter-spacing: 0.5px;
+    will-change: transform;
+    transition: all 0.1s ease-in-out;
     &:hover {
-      background-color: $color-warning-hover;
+      transform: translateY(-2px);
+      background-color: $color-primary-01-hover;
       cursor: pointer;
     }
   }
   &_save {
     width: 100%;
-    background-color: $color-success;
+    background-color: $color-secondary-01;
     padding: $spacing-12;
     border-radius: $radius-6;
     font-size: 20px;
     letter-spacing: 0.5px;
+    will-change: transform;
+    transition: all 0.1s ease-in-out;
     &:hover {
-      background-color: $color-success-hover;
+      transform: translateY(-2px);
+      background-color: $color-secondary-01-hover;
       cursor: pointer;
     }
   }

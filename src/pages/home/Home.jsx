@@ -8,9 +8,9 @@ import TaskWrapper from '../../components/task/TaskWrapper'
 const Home = () => {
   // Default values in minutes (will be converted to seconds)
   const defaultModesInMinutes = {
-    modeTimer: 1,
-    modeShortBreak: 2,
-    modeLongBreak: 1,
+    modeTimer: 25,
+    modeShortBreak: 5,
+    modeLongBreak: 15,
   }
 
   // Load from localStorage or use defaults
@@ -161,71 +161,112 @@ const Home = () => {
     }
   }
 
+  // const floatingText = 'Focus time'
+
   return (
-    <main className={style.Home}>
-      <section className={style.Configuration}>
-        <button className={style.SettingsButton} onClick={() => setShowSettings(!showSettings)}>
-          {showSettings ? 'CLOSE SETTINGS' : 'TIMER SETTINGS'}
-        </button>
-        {showSettings && (
-          <div className={style.SettingsPanel}>
-            <div className={style.SettingItem}>
-              <label>Focus Time (minutes):</label>
-              <input type="number" min="1" max="99" value={Math.floor(customTimes.modeTimer / 60)} onChange={(e) => handleTimeChange('modeTimer', e.target.valueAsNumber)} />
-            </div>
-
-            <div className={style.SettingItem}>
-              <label>Short Break (minutes):</label>
-              <input type="number" min="1" max="99" value={Math.floor(customTimes.modeShortBreak / 60)} onChange={(e) => handleTimeChange('modeShortBreak', e.target.valueAsNumber)} />
-            </div>
-
-            <div className={style.SettingItem}>
-              <label>Long Break (minutes):</label>
-              <input type="number" min="1" max="99" value={Math.floor(customTimes.modeLongBreak / 60)} onChange={(e) => handleTimeChange('modeLongBreak', e.target.valueAsNumber)} />
-            </div>
-
-            <div className={style.SettingsActions}>
-              <button onClick={saveSettings}>SAVE</button>
-              <button onClick={resetToDefault}>RESET DEFAULTS</button>
-            </div>
-          </div>
-        )}
-      </section>
-      <section className={style.MainBox}>
-        <div className={style.Countdown}>
-          <div className={style.Countdown_Box}>
-            <div className={style.Countdown_Box_Number}>
-              <div>{time.minutes}</div>
-            </div>
-            <div className={style.Countdown_Box_Divider}>
-              <div>:</div>
-            </div>
-            <div className={style.Countdown_Box_Number}>
-              <div>{time.seconds}</div>
+    <>
+      <main className={`${style.home} ${style[timerMode]}`}>
+        <section className={style.setting}>
+          <button className={style.setting_button} onClick={() => setShowSettings(!showSettings)}>
+            {showSettings ? 'CLOSE SETTINGS' : 'TIMER SETTINGS'}
+          </button>
+          <div className={`${style.setting_popup} ${showSettings ? style.active : ''}`}>
+            <div className={style.setting_box}>
+              <div className={style.setting_items}>
+                <div className={style.setting_item}>
+                  <div className={style.setting_title}>EGGDOMORO</div>
+                  <div className={style.setting_input}>
+                    <input type="number" min="1" max="99" value={Math.floor(customTimes.modeTimer / 60)} onChange={(e) => handleTimeChange('modeTimer', e.target.valueAsNumber)} />
+                  </div>
+                </div>
+                <div className={style.setting_item}>
+                  <div className={style.setting_title}>SHORT BREAK</div>
+                  <div className={style.setting_input}>
+                    <input type="number" min="1" max="99" value={Math.floor(customTimes.modeShortBreak / 60)} onChange={(e) => handleTimeChange('modeShortBreak', e.target.valueAsNumber)} />
+                  </div>
+                </div>
+                <div className={style.setting_item}>
+                  <div className={style.setting_title}>LONG BREAK</div>
+                  <div className={style.setting_input}>
+                    <input type="number" min="1" max="99" value={Math.floor(customTimes.modeLongBreak / 60)} onChange={(e) => handleTimeChange('modeLongBreak', e.target.valueAsNumber)} />
+                  </div>
+                </div>
+              </div>
+              <div className={style.setting_action}>
+                <button onClick={saveSettings} className={style.setting_save}>
+                  SAVE
+                </button>
+                <button onClick={resetToDefault} className={style.setting_reset}>
+                  RESET DEFAULTS
+                </button>
+              </div>
             </div>
           </div>
-
-          <div className={style.Countdown_Text}>
-            <div>{getCountdownText()}</div>
-          </div>
+        </section>
+        {/* DISINI----------------------------------------------- */}
+        <div className={style.wrapper}>
+          <img className={style.egg} src={timerMode === 'modeTimer' ? '/egg/Focus.svg' : timerMode === 'modeShortBreak' ? '/egg/ShortBreak.svg' : '/egg/LongBreak.svg'} alt="egg" />
+          <section className={`${style.mainbox} ${style[timerMode]}`}>
+            <div className={style.countdown}>
+              <div className={style.countdown_box}>
+                <div className={style.countdown_box_number}>
+                  <div>{time.minutes}</div>
+                </div>
+                <div className={style.countdown_box_divider}>
+                  <div>:</div>
+                </div>
+                <div className={style.countdown_box_number}>
+                  <div>{time.seconds}</div>
+                </div>
+              </div>
+              <div className={style.countdown_text}>
+                <div>{getCountdownText()}</div>
+              </div>
+            </div>
+            <div className={`${style.progressbar} ${isActive ? style.visible : ''}`}>
+              <div style={progressBarStyle}></div>
+            </div>
+            <div className={style.buttonbox}>
+              <button className={`${style.buttonbox_button} ${timerMode === 'modeTimer' ? style.active : ''}`} onClick={() => changeTimerType('modeTimer')}>
+                TIMER
+              </button>
+              <button className={`${style.buttonbox_button} ${timerMode === 'modeShortBreak' ? style.active : ''}`} onClick={() => changeTimerType('modeShortBreak')}>
+                SHORT BREAK
+              </button>
+              <button className={`${style.buttonbox_button} ${timerMode === 'modeLongBreak' ? style.active : ''}`} onClick={() => changeTimerType('modeLongBreak')}>
+                LONG BREAK
+              </button>
+            </div>
+            <button className={`${style.buttonmain} ${!isActive ? style.active : ''}`} onClick={startCountDown}>
+              {isActive ? 'PAUSE' : 'START'}
+            </button>
+          </section>
         </div>
-
-        <div className={style.ProgressBar}>
-          <div style={progressBarStyle}></div>
+        <section className={style.mainbox}>
+          <TaskWrapper />
+        </section>
+      </main>
+      <div className={`${style.floatingtext} ${style[timerMode]}`}>
+        <div className={style.floatingtext_box}>
+          {Array(10)
+            .fill(getCountdownText())
+            .map((item, index) => (
+              <div className={style.floatingtext_text} key={index}>
+                {item}
+              </div>
+            ))}
         </div>
-        <div className={style.ButtonBox}>
-          <button onClick={() => changeTimerType('modeTimer')}>TIMER</button>
-          <button onClick={() => changeTimerType('modeShortBreak')}>SHORT BREAK</button>
-          <button onClick={() => changeTimerType('modeLongBreak')}>LONG BREAK</button>
+        <div className={style.floatingtext_box}>
+          {Array(10)
+            .fill(getCountdownText())
+            .map((item, index) => (
+              <div className={style.floatingtext_text} key={index}>
+                {item}
+              </div>
+            ))}
         </div>
-        <button className={style.ButtonMain} onClick={startCountDown}>
-          {isActive ? 'PAUSE' : 'START'}
-        </button>
-      </section>
-      <section className={style.MainBox}>
-        <TaskWrapper />
-      </section>
-    </main>
+      </div>
+    </>
   )
 }
 

@@ -1,0 +1,42 @@
+@mixin animation-fadein($duration: 0.3s, $easing: ease-in-out, $distance: 5px) {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY($distance);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  animation: fadeIn $duration $easing;
+}
+
+@mixin animation-fadeout($duration: 0.3s, $easing: ease-in-out, $distance: -5px) {
+  @keyframes fadeOut {
+    from {
+      opacity: 0;
+      transform: translateY($distance);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  animation: fadeOut $duration $easing;
+}
+
+@mixin animation-opacity($duration: 0.3s, $easing: ease-in-out) {
+  @keyframes opacity {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  animation: opacity $duration $easing;
+}
