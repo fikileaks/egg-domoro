@@ -4,9 +4,10 @@ import style from './home.module.scss'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 import TaskWrapper from '../../components/task/TaskWrapper'
-import svgfocus from '../../../dist/egg/Focus.svg'
-import svglongbreak from '../../../dist/egg/LongBreak.svg'
-import svgshortbreak from '../../../dist/egg/ShortBreak.svg'
+import svgfocus from '/egg/Focus.svg'
+import svglongbreak from '/egg/LongBreak.svg'
+import svgshortbreak from '/egg/ShortBreak.svg'
+import ovensound from '/audio/oven-sound.mp3'
 
 const Home = () => {
   const defaultModesInMinutes = {
@@ -37,6 +38,7 @@ const Home = () => {
   const [customTimes, setCustomTimes] = useState(initializeTimes())
 
   const timerRef = useRef(null)
+  const alarmRef = useRef(new Audio(ovensound))
 
   useEffect(() => {
     setTimeLeft(customTimes[timerMode])
@@ -92,6 +94,16 @@ const Home = () => {
             clearInterval(timerRef.current)
             setIsActive(false)
             setProgress(100)
+            if (alarmRef.current) {
+              alarmRef.current.currentTime = 0 
+              alarmRef.current.play().catch((err) => {
+                console.error('Failed to play alarm:', err)
+              })
+            }
+            setTimeout(() => {
+              setTimeLeft(customTimes[timerMode])
+              setProgress(0)
+            }, 1000) 
             return 0
           }
 

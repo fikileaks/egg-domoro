@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import style from './TaskList.module.scss'
-import iconedit from '../../../dist/icons/edit.svg'
-import iconclose from '../../../dist/icons/close.svg'
-import iconcheck from '../../../dist/icons/check.svg'
+import iconedit from '/icons/edit.svg'
+import iconclose from '/icons/close.svg'
+import iconcheck from '/icons/check.svg'
 
 const TaskList = ({ tasks, deleteTask, editTask, saveEditedTask, checkTask }) => {
   return (
