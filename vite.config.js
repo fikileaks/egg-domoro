@@ -9,7 +9,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/egg-domoro',
+  base: '/egg-domoro/',
   build: {
     rollupOptions: {
       input: {
