@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TaskForm from './TaskForm'
 import TaskList from './TaskList'
 
 const TaskWrapper = () => {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(() => {
+    const savedTask = localStorage.getItem('SAVED_TASK')
+    return savedTask ? JSON.parse(savedTask) : []
+  })
+
+  useEffect(() => {
+    localStorage.setItem('SAVED_TASK', JSON.stringify(tasks))
+  }, [tasks])
 
   const addTask = (taskName) => {
     setTasks([...tasks, { id: Date.now(), task: taskName, isCompleted: false, isEditing: false }])
@@ -11,7 +18,6 @@ const TaskWrapper = () => {
 
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id))
-    console.log('clicked')
   }
 
   const editTask = (id) => {
