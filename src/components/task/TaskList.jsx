@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import style from './TaskList.module.scss'
+import iconedit from '../../../dist/icons/edit.svg'
+import iconclose from '../../../dist/icons/close.svg'
+import iconcheck from '../../../dist/icons/check.svg'
 
 const TaskList = ({ tasks, deleteTask, editTask, saveEditedTask, checkTask }) => {
   return (
@@ -12,14 +15,14 @@ const TaskList = ({ tasks, deleteTask, editTask, saveEditedTask, checkTask }) =>
             <div key={task.id} className={style.list}>
               <div className={`${style.list_title} ${task.isCompleted ? style.completed : ''}`}>{task.task}</div>
               <button onClick={() => editTask(task.id)} className={style.list_edit}>
-                <img src="/icons/edit.svg" alt="edit" />
+                <img src={iconedit} alt="edit" />
               </button>
               <div className={style.list_execute}>
                 <button onClick={() => deleteTask(task.id)} className={style.list_close}>
-                  <img src="/icons/close.svg" alt="close" />
+                  <img src={iconclose} alt="close" />
                 </button>
                 <button onClick={() => checkTask(task.id)} className={style.list_done}>
-                  <img src="/icons/check.svg" alt="check" />
+                  <img src={iconcheck} alt="check" />
                 </button>
               </div>
             </div>

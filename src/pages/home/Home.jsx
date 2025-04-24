@@ -4,6 +4,9 @@ import style from './home.module.scss'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 import TaskWrapper from '../../components/task/TaskWrapper'
+import svgfocus from '../../../dist/egg/Focus.svg'
+import svglongbreak from '../../../dist/egg/LongBreak.svg'
+import svgshortbreak from '../../../dist/egg/ShortBreak.svg'
 
 const Home = () => {
   const defaultModesInMinutes = {
@@ -194,7 +197,7 @@ const Home = () => {
           </div>
         </section>
         <div className={style.wrapper}>
-          <img className={style.egg} src={timerMode === 'modeTimer' ? '/egg/Focus.svg' : timerMode === 'modeShortBreak' ? '/egg/ShortBreak.svg' : '/egg/LongBreak.svg'} alt="egg" />
+          <img className={style.egg} src={timerMode === 'modeTimer' ? svgfocus : timerMode === 'modeShortBreak' ? svgshortbreak : svglongbreak} alt="egg" />
           <section className={`${style.mainbox} ${style[timerMode]}`}>
             <div className={style.countdown}>
               <div className={style.countdown_box}>
