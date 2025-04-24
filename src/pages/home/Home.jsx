@@ -6,20 +6,17 @@ import { useEffect } from 'react'
 import TaskWrapper from '../../components/task/TaskWrapper'
 
 const Home = () => {
-  // Default values in minutes (will be converted to seconds)
   const defaultModesInMinutes = {
     modeTimer: 25,
     modeShortBreak: 5,
     modeLongBreak: 15,
   }
 
-  // Load from localStorage or use defaults
   const loadFromLocalStorage = () => {
-    const savedTimes = localStorage.getItem('eggmodoroTimes')
+    const savedTimes = localStorage.getItem('SAVED_TIME_DATA')
     return savedTimes ? JSON.parse(savedTimes) : defaultModesInMinutes
   }
 
-  // Convert minutes to seconds for internal use
   const initializeTimes = () => {
     const timesInMinutes = loadFromLocalStorage()
     return {
@@ -29,7 +26,7 @@ const Home = () => {
     }
   }
 
-  const [timeLeft, setTimeLeft] = useState(0) // Will be set in useEffect
+  const [timeLeft, setTimeLeft] = useState(0)
   const [timerMode, setTimerMode] = useState(Object.keys(defaultModesInMinutes)[0])
   const [isActive, setIsActive] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -38,12 +35,10 @@ const Home = () => {
 
   const timerRef = useRef(null)
 
-  // Initialize timeLeft when component mounts
   useEffect(() => {
     setTimeLeft(customTimes[timerMode])
   }, [])
 
-  // Handle timer mode changes
   useEffect(() => {
     setTimeLeft(customTimes[timerMode])
     setProgress(0)
@@ -53,7 +48,6 @@ const Home = () => {
     }
   }, [timerMode, customTimes])
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -62,7 +56,6 @@ const Home = () => {
     }
   }, [])
 
-  // Save to localStorage whenever customTimes changes
   useEffect(() => {
     const timesInMinutes = {
       modeTimer: customTimes.modeTimer / 60,
@@ -126,7 +119,6 @@ const Home = () => {
 
   const saveSettings = () => {
     setShowSettings(false)
-    // Reset current timer
     setTimeLeft(customTimes[timerMode])
     setProgress(0)
     setIsActive(false)
@@ -160,8 +152,6 @@ const Home = () => {
       return 'FULL REST'
     }
   }
-
-  // const floatingText = 'Focus time'
 
   return (
     <>
@@ -203,7 +193,6 @@ const Home = () => {
             </div>
           </div>
         </section>
-        {/* DISINI----------------------------------------------- */}
         <div className={style.wrapper}>
           <img className={style.egg} src={timerMode === 'modeTimer' ? '/egg/Focus.svg' : timerMode === 'modeShortBreak' ? '/egg/ShortBreak.svg' : '/egg/LongBreak.svg'} alt="egg" />
           <section className={`${style.mainbox} ${style[timerMode]}`}>

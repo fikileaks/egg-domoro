@@ -7,10 +7,8 @@ const TaskList = ({ tasks, deleteTask, editTask, saveEditedTask, checkTask }) =>
       {tasks.map((task) => (
         <>
           {task.isEditing ? (
-            // FORM EDIT
             <EditTaskForm task={task} saveEditedTask={saveEditedTask} editTask={editTask} />
           ) : (
-            // VIEW MODE
             <div key={task.id} className={style.list}>
               <div className={`${style.list_title} ${task.isCompleted ? style.completed : ''}`}>{task.task}</div>
               <button onClick={() => editTask(task.id)} className={style.list_edit}>
@@ -41,7 +39,7 @@ const EditTaskForm = ({ task, saveEditedTask, editTask }) => {
   }
 
   const handleCancelEdit = () => {
-    editTask(task.id) // keluar dari mode edit
+    editTask(task.id)
   }
 
   return (

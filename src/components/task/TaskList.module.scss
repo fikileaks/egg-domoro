@@ -4,7 +4,6 @@
 @import '../../styling/mixin/animation.scss';
 
 .list {
-  // DISINI input edit---------
   display: flex;
   padding: $spacing-12;
   border-radius: $radius-6;
@@ -45,7 +44,6 @@
     border-radius: $radius-6;
     margin-right: $spacing-4;
     background-color: $color-alert;
-    border: 3px solid $color-primary-03;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 
@@ -57,7 +55,6 @@
     display: none;
     border-radius: $radius-6;
     flex-shrink: 0;
-    border: 3px solid $color-primary-03;
     overflow: hidden;
   }
   &_close {
@@ -84,7 +81,6 @@
   }
 }
 
-// DISINI input---------
 .formlist {
   width: 100%;
   border-radius: $radius-6;

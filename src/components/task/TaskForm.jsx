@@ -28,7 +28,6 @@ const TaskForm = ({ addTask }) => {
       {isAddNewTask && (
         <form onSubmit={handleSaveTask} className={style.formlist}>
           <input className={style.formlist_input} type="text" value={value} onChange={(e) => setValue(e.target.value)} autoFocus />
-          {/* BUTTON MUNCUL KETIKA KLIK ADD NEW TASAK */}
           <div className={style.button}>
             <button type="button" onClick={handleCancelTask} className={style.button_cancel}>
               CANCEL
@@ -39,7 +38,6 @@ const TaskForm = ({ addTask }) => {
           </div>
         </form>
       )}
-      {/* Button task auto hide kalo task newnya true */}
       {!isAddNewTask && (
         <button onClick={handleNewTask} className={style.addtask}>
           ADD NEW TASK

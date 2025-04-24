@@ -1,4 +1,3 @@
-// Tempat Menampung Task
 import React, { useState } from 'react'
 import TaskForm from './TaskForm'
 import TaskList from './TaskList'
@@ -6,7 +5,6 @@ import TaskList from './TaskList'
 const TaskWrapper = () => {
   const [tasks, setTasks] = useState([])
 
-  // Taskname sebagai param aja
   const addTask = (taskName) => {
     setTasks([...tasks, { id: Date.now(), task: taskName, isCompleted: false, isEditing: false }])
   }
